@@ -18,7 +18,7 @@ const Main = () => {
       <div class=" w-full h-full  p-5 rounded-md bg-neutral-400 ">
         <div className=" flex flex-row justify-evenly   bg-neutral-500 p-3 rounded-lg border-2 border-neutral-700 ">
           <button
-            className="flex items-center  border-2 px-5 py-1 bg-neutral-100 font-bold rounded-md  border-neutral-700  "
+            className="flex as items-center  border-2 px-5 py-1 bg-neutral-100 font-bold rounded-md  border-neutral-700  "
             onClick={() => {
               setIsAudioVisible(!isAudioVisible);
               toggleAudio();
