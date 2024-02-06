@@ -43,6 +43,16 @@ const Main = () => {
           <button className="flex items-center border-2 px-5 py-1 bg-neutral-100 font-bold rounded-md border-neutral-700">
             <img src={randomIcon} alt="" className="w-5" /> Random Order
           </button>
+          {!isAudioVisible && (
+            <>
+              <audio
+                controls
+                src=""
+                type="audio/mp3"
+                className="h-[36px]  border-2 rounded-full border-neutral-700"
+              />
+            </>
+          )}
           {MusicArray.map((item) => (
             <>
               {isAudioVisible && currentAudioId === item.id && (
