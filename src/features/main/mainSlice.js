@@ -5,7 +5,7 @@ export const audioSlice = createSlice({
   initialState: {
     isAudioVisible: false,
     isAudioPlaying: false,
-    currentAudioId: null, // добавляем поле для хранения идентификатора текущей играющей песни
+    currentAudioId: null,
   },
   reducers: {
     toggleAudioVisibility: (state) => {
@@ -13,7 +13,7 @@ export const audioSlice = createSlice({
     },
     toggleAudioPlaying: (state, action) => {
       state.isAudioPlaying = !state.isAudioPlaying;
-      state.currentAudioId = action.payload; // сохраняем идентификатор текущей играющей песни
+      state.currentAudioId = action.payload;
     },
   },
 });
@@ -22,6 +22,6 @@ export const { toggleAudioVisibility, toggleAudioPlaying } = audioSlice.actions;
 
 export const selectAudioVisibility = (state) => state.audio.isAudioVisible;
 export const selectAudioPlaying = (state) => state.audio.isAudioPlaying;
-export const selectCurrentAudioId = (state) => state.audio.currentAudioId; // добавляем селектор для получения идентификатора текущей играющей песни
+export const selectCurrentAudioId = (state) => state.audio.currentAudioId;
 
 export default audioSlice.reducer;
