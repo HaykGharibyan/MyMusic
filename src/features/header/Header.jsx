@@ -7,6 +7,7 @@ import { useSelector, useDispatch } from "react-redux";
 export default function Header() {
   const searchQuery = useSelector(selectSearchQuery);
   const dispatch = useDispatch();
+
   return (
     <div className="bg-neutral-700">
       <div className=" container mx-auto w-full h-full flex flex-row  items-center justify-between  bg-neutral-700 ">

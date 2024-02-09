@@ -8,6 +8,7 @@ import {
   selectCurrentAudioId,
   selectSearchQuery,
 } from "../main/mainSlice";
+import { selectSelectedGenre, selectedGenre } from "../aside/genreSlice";
 import playIcon from "../../img/play.png";
 import pauseIcon from "../../img/pause.png";
 import addIcon from "../../img/plus.png";
@@ -20,6 +21,7 @@ const Main = () => {
   const isAudioPlaying = useSelector(selectAudioPlaying);
   const currentAudioId = useSelector(selectCurrentAudioId);
   const searchQuery = useSelector(selectSearchQuery);
+  const selectedGenre = useSelector(selectSelectedGenre);
   const dispatch = useDispatch();
   const [currentTrackIndex, setCurrentTrackIndex] = useState(0);
 
@@ -45,15 +47,18 @@ const Main = () => {
     }
   }, [currentTrackIndex]);
 
-  const filteredMusic = MusicArray.filter((item) =>
-    item.songName.toLowerCase().includes(searchQuery.toLowerCase())
+  const filteredMusic = MusicArray.filter(
+    (item) =>
+      item.genre.toLowerCase().includes(selectedGenre.toLowerCase()) &&
+      item.songName.toLowerCase().includes(searchQuery.toLowerCase())
   );
+
   return (
     <div className="flex-grow mr-5 rounded-md bg-gradient-to-r from-blue-600 via-red-600 to-yellow-500 p-1">
       <div className="w-full h-full p-5 rounded-md bg-neutral-400">
         <div className="flex flex-row justify-evenly bg-neutral-500 p-3 rounded-lg border-2 border-neutral-700">
           <button
-            className="flex as items-center border-2 px-5 py-1 bg-neutral-100 font-bold rounded-md border-neutral-700"
+            className="flex as items-center border-2 px-5 py-1 bg-neutral-100 font-bold rounded-md border-neutral-700 hover:scale-105 hover:bg-gradient-to-r from-yellow-400 via-red-400 to-blue-400"
             onClick={playAllTracks}
           >
             <img src={playIcon} alt="" className="w-5" /> Play All
