@@ -101,6 +101,7 @@ const Main = () => {
           <div className="w-1/6 px-2"> </div>
           <div className="border-l w-full pl-5">Artist Name</div>
           <div className="border-l w-full pl-5 px-2">Song Name</div>
+          <div className="border-l w-full pl-5 px-2"> Genre</div>{" "}
           <div className="border-x w-full pl-5 px-2"> Track</div>
           <div className="w-1/6 px-2"></div>
         </div>
@@ -128,7 +129,12 @@ const Main = () => {
                 />
               </div>
               <div className="border-l w-full pl-5">{item.artistName}</div>
-              <div className="border-l w-full pl-5 px-2">{item.songName}</div>
+              <div className="border-l w-full pl-5 px-2">
+                {item.songName}
+              </div>{" "}
+              <div className="border-l w-full pl-5 px-2 flex ">
+                {item.genre}
+              </div>
               <div className="border-x w-full pl-5 px-2 flex "> {item.id}</div>
               <div className="w-1/6 px-2 flex items-center justify-center">
                 <a

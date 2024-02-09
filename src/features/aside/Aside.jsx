@@ -2,7 +2,6 @@ import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import wavesImg from "../../img/genre-waves.png";
 import { setSelectedGenre, selectSelectedGenre } from "./genreSlice";
-import musicIcon from "../../img/music.png";
 
 const Aside = () => {
   const selectedGenre = useSelector(selectSelectedGenre);
@@ -24,15 +23,15 @@ const Aside = () => {
           <div>
             <ul className="text-3xl px-7 space-y-1 py-3 font-mono bg-neutral-500 cursor-pointer">
               {[
-                { genre: "Popular", name: "Popular" },
-                { genre: "Hip hop", name: "Hip hop" },
-                { genre: "Classic", name: "Classic" },
-                { genre: "Metal", name: "Metal" },
-                { genre: "Rock", name: "Rock" },
-                { genre: "Funk", name: "Funk" },
-                { genre: "Jazz", name: "Jazz" },
-                { genre: "Rap", name: "Rap" },
-                { genre: "Pop", name: "Pop" },
+                { genre: "Popular" },
+                { genre: "Hip hop" },
+                { genre: "Classic" },
+                { genre: "Metal" },
+                { genre: "Rock" },
+                { genre: "Funk" },
+                { genre: "Jazz" },
+                { genre: "Rap" },
+                { genre: "Pop" },
               ].map((item) => (
                 <li
                   key={item.genre}
@@ -41,9 +40,9 @@ const Aside = () => {
                       ? "scale-105 bg-gradient-to-r from-yellow-400 via-red-400 to-blue-400 text-white border-2 rounded-md"
                       : "hover:scale-105 hover:bg-gradient-to-r from-yellow-400 via-red-400 to-blue-400 hover:text-white "
                   }`}
-                  onClick={() => handleGenreClick(item.name)}
+                  onClick={() => handleGenreClick(item.genre)}
                 >
-                  {item.name}
+                  {item.genre}
                 </li>
               ))}
             </ul>
