@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import {
   toggleAudioVisibility,
@@ -19,6 +19,7 @@ const Main = () => {
   const isAudioPlaying = useSelector(selectAudioPlaying);
   const currentAudioId = useSelector(selectCurrentAudioId);
   const dispatch = useDispatch();
+  const [currentTrackIndex, setCurrentTrackIndex] = useState(0);
 
   const toggleAudio = (id) => {
     dispatch(toggleAudioPlaying(id));
@@ -28,20 +29,40 @@ const Main = () => {
   const handleAudioEnded = () => {
     dispatch(toggleAudioPlaying());
     dispatch(toggleAudioVisibility());
+    setCurrentTrackIndex(currentTrackIndex + 1);
   };
+
+  const playAllTracks = () => {
+    setCurrentTrackIndex(0);
+    toggleAudio(MusicArray[currentTrackIndex].id);
+  };
+
+  useEffect(() => {
+    if (currentTrackIndex < MusicArray.length) {
+      toggleAudio(MusicArray[currentTrackIndex].id);
+    }
+  }, [currentTrackIndex]);
 
   return (
     <div className="flex-grow mr-5 rounded-md bg-gradient-to-r from-blue-600 via-red-600 to-yellow-500 p-1">
       <div className="w-full h-full p-5 rounded-md bg-neutral-400">
         <div className="flex flex-row justify-evenly bg-neutral-500 p-3 rounded-lg border-2 border-neutral-700">
-          <button className="flex as items-center border-2 px-5 py-1 bg-neutral-100 font-bold rounded-md border-neutral-700">
-            <img src={playIcon} alt="" className="w-5" /> Play All
+          <button
+            className="flex as items-center border-2 px-5 py-1 bg-neutral-100 font-bold rounded-md border-neutral-700 hover:scale-105 hover:bg-gradient-to-r from-yellow-400 via-red-400 to-blue-400 "
+            onClick={playAllTracks}
+          >
+            <img
+              src={playIcon}
+              alt=""
+              className="w-5 hover:filter hover:grayscale-0 hover:brightness-150"
+            />{" "}
+            Play All
           </button>
-          <button className="flex items-center border-2 px-5 py-1 bg-neutral-100 font-bold rounded-md border-neutral-700">
+          <button className="flex items-center border-2 px-5 py-1 bg-neutral-100 font-bold rounded-md border-neutral-700 hover:scale-105 hover:bg-gradient-to-r from-yellow-400 via-red-400 to-blue-400">
             <img src={addIcon} alt="" className="w-5" /> Add All
           </button>
-          <button className="flex items-center border-2 px-5 py-1 bg-neutral-100 font-bold rounded-md border-neutral-700">
-            <img src={randomIcon} alt="" className="w-5" /> Random Order
+          <button className="flex items-center border-2 px-5 py-1 bg-neutral-100 font-bold rounded-md border-neutral-700  hover:scale-105 hover:bg-gradient-to-r from-yellow-400 via-red-400 to-blue-400">
+            <img src={randomIcon} alt="" className="w-5 " /> Random Order
           </button>
           {!isAudioVisible && (
             <>
@@ -49,7 +70,7 @@ const Main = () => {
                 controls
                 src=""
                 type="audio/mp3"
-                className="h-[36px]  border-2 rounded-full border-neutral-700"
+                className="h-[36px]  border-2 rounded-full border-neutral-700   "
               />
             </>
           )}
