@@ -6,6 +6,7 @@ import {
   selectAudioVisibility,
   selectAudioPlaying,
   selectCurrentAudioId,
+  selectSearchQuery,
 } from "../main/mainSlice";
 import playIcon from "../../img/play.png";
 import pauseIcon from "../../img/pause.png";
@@ -18,6 +19,7 @@ const Main = () => {
   const isAudioVisible = useSelector(selectAudioVisibility);
   const isAudioPlaying = useSelector(selectAudioPlaying);
   const currentAudioId = useSelector(selectCurrentAudioId);
+  const searchQuery = useSelector(selectSearchQuery);
   const dispatch = useDispatch();
   const [currentTrackIndex, setCurrentTrackIndex] = useState(0);
 
@@ -43,20 +45,18 @@ const Main = () => {
     }
   }, [currentTrackIndex]);
 
+  const filteredMusic = MusicArray.filter((item) =>
+    item.songName.toLowerCase().includes(searchQuery.toLowerCase())
+  );
   return (
     <div className="flex-grow mr-5 rounded-md bg-gradient-to-r from-blue-600 via-red-600 to-yellow-500 p-1">
       <div className="w-full h-full p-5 rounded-md bg-neutral-400">
         <div className="flex flex-row justify-evenly bg-neutral-500 p-3 rounded-lg border-2 border-neutral-700">
           <button
-            className="flex as items-center border-2 px-5 py-1 bg-neutral-100 font-bold rounded-md border-neutral-700 hover:scale-105 hover:bg-gradient-to-r from-yellow-400 via-red-400 to-blue-400 "
+            className="flex as items-center border-2 px-5 py-1 bg-neutral-100 font-bold rounded-md border-neutral-700"
             onClick={playAllTracks}
           >
-            <img
-              src={playIcon}
-              alt=""
-              className="w-5 hover:filter hover:grayscale-0 hover:brightness-150"
-            />{" "}
-            Play All
+            <img src={playIcon} alt="" className="w-5" /> Play All
           </button>
           <button className="flex items-center border-2 px-5 py-1 bg-neutral-100 font-bold rounded-md border-neutral-700 hover:scale-105 hover:bg-gradient-to-r from-yellow-400 via-red-400 to-blue-400">
             <img src={addIcon} alt="" className="w-5" /> Add All
@@ -100,7 +100,7 @@ const Main = () => {
           <div className="w-1/6 px-2"></div>
         </div>
 
-        {MusicArray.map((item) => (
+        {filteredMusic.map((item) => (
           <div className="border-b-2" key={item.id}>
             <div className="flex flex-row justify-evenly text-lg font-semibold bg-neutral-500 p-2">
               <div className="w-1/6 px-2 flex items-center justify-between">

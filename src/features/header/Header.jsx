@@ -1,8 +1,12 @@
 import React from "react";
 import logo from "../../img/audio-waves.png";
 import favoriteMusicImg from "../../img/favorite.png";
+import { selectSearchQuery, setSearchQuery } from "../main/mainSlice";
+import { useSelector, useDispatch } from "react-redux";
 
 export default function Header() {
+  const searchQuery = useSelector(selectSearchQuery);
+  const dispatch = useDispatch();
   return (
     <div className="bg-neutral-700">
       <div className=" container mx-auto w-full h-full flex flex-row  items-center justify-between  bg-neutral-700 ">
@@ -21,7 +25,9 @@ export default function Header() {
 
           <input
             type="text"
-            placeholder="Search"
+            placeholder="Search Music"
+            value={searchQuery}
+            onChange={(e) => dispatch(setSearchQuery(e.target.value))}
             className="block bg-white w-64 border rounded-md py-2 pl-4 pr-3 shadow-sm focus:outline-none focus:border-sky-500 focus:ring-sky-500 focus:ring-1 sm:text-sm "
           />
         </div>
