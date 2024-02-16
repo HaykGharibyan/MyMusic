@@ -7,14 +7,20 @@ import {
   selectAudioPlaying,
   selectCurrentAudioId,
   selectSearchQuery,
+  toggleAddFavoritesList,
+  selectFavoritesListVisibility,
+  selectFavorites,
+  selectCanciErevaly,
+  removeFromFavorites,
 } from "../main/mainSlice";
-import { selectSelectedGenre, selectedGenre } from "../aside/genreSlice";
+import { selectSelectedGenre } from "../aside/genreSlice";
 import playIcon from "../../img/play.png";
 import pauseIcon from "../../img/pause.png";
 import addIcon from "../../img/plus.png";
 import randomIcon from "../../img/shuffle.png";
 import downloadIcon from "../../img/downloads.png";
 import MusicArray from "./MusicArray";
+import bin from "../../img/bin.png";
 
 const Main = () => {
   const isAudioVisible = useSelector(selectAudioVisibility);
@@ -22,7 +28,9 @@ const Main = () => {
   const currentAudioId = useSelector(selectCurrentAudioId);
   const searchQuery = useSelector(selectSearchQuery);
   const selectedGenre = useSelector(selectSelectedGenre);
+  const favoritesList = useSelector(selectFavorites);
   const dispatch = useDispatch();
+  const canciErevaly = useSelector(selectCanciErevaly);
   const [currentTrackIndex, setCurrentTrackIndex] = useState(0);
 
   const toggleAudio = (id) => {
@@ -30,6 +38,15 @@ const Main = () => {
     dispatch(toggleAudioVisibility());
   };
 
+  const handleRemoveFromFavorites = (id) => {
+    dispatch(removeFromFavorites(id));
+  };
+
+  const openFavorite = useSelector(selectFavoritesListVisibility);
+
+  const addFavorites = (id) => {
+    dispatch(toggleAddFavoritesList(id));
+  };
   const handleAudioEnded = () => {
     dispatch(toggleAudioPlaying());
     dispatch(toggleAudioVisibility());
@@ -66,6 +83,7 @@ const Main = () => {
           <button className="flex items-center border-2 px-5 py-1 bg-neutral-100 font-bold rounded-md border-neutral-700 hover:scale-105 hover:bg-gradient-to-r from-yellow-400 via-red-400 to-blue-400">
             <img src={addIcon} alt="" className="w-5" /> Add All
           </button>
+
           <button className="flex items-center border-2 px-5 py-1 bg-neutral-100 font-bold rounded-md border-neutral-700  hover:scale-105 hover:bg-gradient-to-r from-yellow-400 via-red-400 to-blue-400">
             <img src={randomIcon} alt="" className="w-5 " /> Random Order
           </button>
@@ -105,48 +123,130 @@ const Main = () => {
           <div className="border-x w-full pl-5 px-2"> Track</div>
           <div className="w-1/6 px-2"></div>
         </div>
-
-        {filteredMusic.map((item) => (
-          <div className="border-b-2" key={item.id}>
-            <div className="flex flex-row justify-evenly text-lg font-semibold bg-neutral-500 p-2">
-              <div className="w-1/6 px-2 flex items-center justify-between">
-                <img
-                  src={addIcon}
-                  alt=""
-                  className="w-4 hover:scale-125 cursor-pointer"
-                />
-                <img
-                  src={
-                    currentAudioId === item.id && isAudioPlaying
-                      ? pauseIcon
-                      : playIcon
-                  }
-                  alt=""
-                  className="w-4 hover:scale-125 cursor-pointer"
-                  onClick={() => {
-                    toggleAudio(item.id);
-                  }}
-                />
+        <>
+          {openFavorite &&
+            (favoritesList.length === 0 ? (
+              <div className=" rounded-xl bg-gradient-to-r from-blue-600 via-red-600 to-yellow-500 p-1">
+                <div className=" p-16 rounded-md bg-neutral-400">
+                  <p className="flex text-center items-center justify-center text-5xl font-bold   text-white ">
+                    Favorites list is empty
+                  </p>
+                </div>
               </div>
-              <div className="border-l w-full pl-5">{item.artistName}</div>
-              <div className="border-l w-full pl-5 px-2">
-                {item.songName}
-              </div>{" "}
-              <div className="border-l w-full pl-5 px-2 flex ">
-                {item.genre}
+            ) : (
+              favoritesList.map((favoriteId) => {
+                const favoriteSong = MusicArray.find(
+                  (song) => song.id === favoriteId
+                );
+                return (
+                  <div className="border-b-2" key={favoriteId}>
+                    <div className="flex flex-row justify-evenly text-lg font-semibold bg-neutral-500 p-2">
+                      <div className="w-1/6 px-2 flex items-center justify-between">
+                        <img
+                          src={bin}
+                          alt=""
+                          className="w-4 hover:scale-125 cursor-pointer"
+                          onClick={() => handleRemoveFromFavorites(favoriteId)}
+                        />
+                        <img
+                          src={
+                            currentAudioId === favoriteSong.id && isAudioPlaying
+                              ? pauseIcon
+                              : playIcon
+                          }
+                          alt=""
+                          className="w-4 hover:scale-125 cursor-pointer"
+                          onClick={() => {
+                            toggleAudio(favoriteSong.id);
+                          }}
+                        />
+                      </div>
+                      <div className="border-l w-full pl-5">
+                        {favoriteSong.artistName}
+                      </div>
+                      <div className="border-l w-full pl-5 px-2">
+                        {favoriteSong.songName}
+                      </div>{" "}
+                      <div className="border-l w-full pl-5 px-2 flex ">
+                        {favoriteSong.genre}
+                      </div>
+                      <div className="border-x w-full pl-5 px-2 flex ">
+                        {" "}
+                        {favoriteSong.id}
+                      </div>
+                      <div className="w-1/6 px-2 flex items-center justify-center">
+                        <a
+                          href={require(`../../music/${favoriteSong.src}`)}
+                          download={favoriteSong.songName}
+                        >
+                          <img
+                            src={downloadIcon}
+                            alt="downloadIcon"
+                            className="w-6"
+                          />
+                        </a>
+                      </div>
+                    </div>
+                  </div>
+                );
+              })
+            ))}
+        </>
+        {canciErevaly && (
+          <>
+            {filteredMusic.map((item) => (
+              <div className="border-b-2" key={item.id}>
+                <div className="flex flex-row justify-evenly text-lg font-semibold bg-neutral-500 p-2">
+                  <div className="w-1/6 px-2 flex items-center justify-between">
+                    <img
+                      src={addIcon}
+                      alt=""
+                      className="w-4 hover:scale-125 cursor-pointer"
+                      onClick={() => {
+                        addFavorites(item.id);
+                      }}
+                    />
+                    <img
+                      src={
+                        currentAudioId === item.id && isAudioPlaying
+                          ? pauseIcon
+                          : playIcon
+                      }
+                      alt=""
+                      className="w-4 hover:scale-125 cursor-pointer"
+                      onClick={() => {
+                        toggleAudio(item.id);
+                      }}
+                    />
+                  </div>
+                  <div className="border-l w-full pl-5">{item.artistName}</div>
+                  <div className="border-l w-full pl-5 px-2">
+                    {item.songName}
+                  </div>{" "}
+                  <div className="border-l w-full pl-5 px-2 flex ">
+                    {item.genre}
+                  </div>
+                  <div className="border-x w-full pl-5 px-2 flex ">
+                    {" "}
+                    {item.id}
+                  </div>
+                  <div className="w-1/6 px-2 flex items-center justify-center">
+                    <a
+                      href={require(`../../music/${item.src}`)}
+                      download={item.songName}
+                    >
+                      <img
+                        src={downloadIcon}
+                        alt="downloadIcon"
+                        className="w-6"
+                      />
+                    </a>
+                  </div>
+                </div>
               </div>
-              <div className="border-x w-full pl-5 px-2 flex "> {item.id}</div>
-              <div className="w-1/6 px-2 flex items-center justify-center">
-                <a
-                  href={require(`../../music/${item.src}`)}
-                  download={item.songName}
-                >
-                  <img src={downloadIcon} alt="downloadIcon" className="w-6" />
-                </a>
-              </div>
-            </div>
-          </div>
-        ))}
+            ))}
+          </>
+        )}
       </div>
     </div>
   );
