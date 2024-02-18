@@ -12,7 +12,7 @@ const Aside = () => {
   };
 
   return (
-    <div className="w-1/4 flex">
+    <div className="m-5 hidden w-1/4 lg:flex">
       <div className="w-full rounded-md bg-gradient-to-r from-yellow-500 via-red-600 to-blue-600 p-1">
         <div className="w-full h-full p-5 rounded-md bg-neutral-400">
           <div className="flex items-center pb-4 justify-center">

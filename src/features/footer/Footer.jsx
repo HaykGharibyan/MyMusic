@@ -2,24 +2,22 @@ import React from "react";
 
 const Footer = () => (
   <footer className="bg-neutral-700">
-    <div
-      className={`container mx-auto text-neutral-300 ${
-        window.innerWidth <= 640 ? "px-10" : ""
-      }`}
-    >
-      <div className="flex justify-between">
+    <div className=" container mx-auto text-neutral-300">
+      <div className="m-5 flex justify-between">
         <div className="w-1/2">
-          <p className="text-5xl py-2 text-neutral-100 font-bold  ">My Music</p>
-          <p className=" text-xl font-mono">
+          <p className="text-2xl lg:text-5xl py-2 text-neutral-100 font-bold  ">
+            My Music
+          </p>
+          <p className=" text-lg lg:text-xl font-mono">
             your assistant in the world of music
           </p>
         </div>
 
-        <div className=" mt-2 font-mono">
-          <p className="text-xl ">
+        <div className=" mt-2 ">
+          <p className="text-lg lg:text-xl font-bold ">
             <strong>Contacts</strong>
           </p>
-          <ul className="">
+          <ul className="font-mono ">
             <li>
               <a href="">About</a>
             </li>
@@ -32,11 +30,11 @@ const Footer = () => (
           </ul>
         </div>
 
-        <div className="mt-2 font-mono">
-          <p className="text-xl">
+        <div className="mt-2 ">
+          <p className="text-lg lg:text-xl font-bold">
             <strong>Links</strong>
           </p>
-          <ul className="">
+          <ul className=" font-mono">
             <li>
               <a href="#!">Instagaram</a>
             </li>

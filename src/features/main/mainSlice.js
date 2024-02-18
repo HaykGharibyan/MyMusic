@@ -27,7 +27,7 @@ export const audioSlice = createSlice({
     setSearchQuery: (state, action) => {
       state.searchQuery = action.payload;
     },
-    toggleFavoritesListVisibility: (state, action) => {
+    toggleFavoritesListVisibility: (state) => {
       state.isFavoritesListVisibility = !state.isFavoritesListVisibility;
       state.canciErevaly = !state.canciErevaly;
     },
