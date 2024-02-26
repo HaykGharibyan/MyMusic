@@ -119,7 +119,7 @@ const Main = () => {
           <div className="w-1/6 pr-4 lg:px-2"> </div>
           <div className="border-l w-full lg:pl-5">Artist Name</div>
           <div className="border-x w-full lg:pl-5 px-2">Song Name</div>
-          <div className="hidden lg:inline-block  w-full pl-5 px-2">
+          <div className="hidden lg:inline-block w-full pl-5 px-2">
             {" "}
             Genre
           </div>{" "}

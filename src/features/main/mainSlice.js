@@ -11,6 +11,11 @@ export const audioSlice = createSlice({
     randomOrder: false,
     searchQuery: "",
     favorites: [],
+    tracks: [],
+    currentPage: 1,
+    isLoading: true,
+    currentTrack: null,
+    isPlaying: false,
   },
 
   reducers: {
@@ -39,6 +44,21 @@ export const audioSlice = createSlice({
     removeFromFavorites: (state, action) => {
       state.favorites = state.favorites.filter((id) => id !== action.payload);
     },
+    setTracks(state, action) {
+      state.tracks = [...state.tracks, ...action.payload];
+    },
+    setCurrentPage(state, action) {
+      state.currentPage = action.payload;
+    },
+    setIsLoading(state, action) {
+      state.isLoading = action.payload;
+    },
+    setCurrentTrack(state, action) {
+      state.currentTrack = action.payload;
+    },
+    setIsPlaying(state, action) {
+      state.isPlaying = action.payload;
+    },
   },
 });
 
@@ -50,6 +70,11 @@ export const {
   setSearchQuery,
   toggleDeleteFavorite,
   toggleAddFavoritesList,
+  setTracks,
+  setCurrentPage,
+  setIsLoading,
+  setCurrentTrack,
+  setIsPlaying,
 } = audioSlice.actions;
 
 export const removeFromFavorites = (id) => ({
