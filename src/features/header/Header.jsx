@@ -6,16 +6,22 @@ import {
   selectSearchQuery,
   setSearchQuery,
   toggleFavoritesListVisibility,
+  toggleMenu,
+  selectMenuState,
 } from "../main/mainSlice";
-
 import { useSelector, useDispatch } from "react-redux";
 
 export default function Header() {
   const searchQuery = useSelector(selectSearchQuery);
+  const isMenuOpen = useSelector(selectMenuState);
   const dispatch = useDispatch();
 
-  const openfavoriteList = () => {
+  const openFavoriteList = () => {
     dispatch(toggleFavoritesListVisibility());
+  };
+
+  const handleMenuClick = () => {
+    dispatch(toggleMenu());
   };
 
   return (
@@ -32,9 +38,7 @@ export default function Header() {
             src={favoriteMusicImg}
             alt="favorit Img"
             className="w-16 cursor-pointer mx-3 "
-            onClick={() => {
-              openfavoriteList();
-            }}
+            onClick={openFavoriteList}
           />
           <input
             type="text"
@@ -43,12 +47,33 @@ export default function Header() {
             onChange={(e) => dispatch(setSearchQuery(e.target.value))}
             className="block bg-white w-64 border rounded-md py-2 pl-4 pr-3 shadow-sm focus:outline-none focus:border-sky-500 focus:ring-sky-500 focus:ring-1 sm:text-sm "
           />
-        </div>{" "}
-        <button className=" mx-5 inline-block md:hidden">
+        </div>
+        <button
+          className=" mx-5 inline-block md:hidden"
+          onClick={handleMenuClick}
+        >
           <img src={menuIcon} alt="" />
-          <img src="" alt="" />
         </button>
       </div>
+      {isMenuOpen && (
+        <div className=" bg-neutral-800 p-4 ">
+          <div className=" mx-5 flex items-center">
+            <input
+              type="text"
+              placeholder="Search Music"
+              value={searchQuery}
+              onChange={(e) => dispatch(setSearchQuery(e.target.value))}
+              className="block bg-white w-64 border rounded-md py-2 pl-4 pr-3 shadow-sm focus:outline-none focus:border-sky-500 focus:ring-sky-500 focus:ring-1 sm:text-sm "
+            />
+            <img
+              src={favoriteMusicImg}
+              alt="favorit Img"
+              className="w-16 cursor-pointer mx-3 "
+              onClick={openFavoriteList}
+            />
+          </div>
+        </div>
+      )}
     </div>
   );
 }

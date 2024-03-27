@@ -70,6 +70,12 @@ const Main = () => {
       item.songName.toLowerCase().includes(searchQuery.toLowerCase())
   );
 
+  const filteredFavorites = favoritesList.filter((favoriteId) =>
+    MusicArray.find((song) => song.id === favoriteId)
+      .songName.toLowerCase()
+      .includes(searchQuery.toLowerCase())
+  );
+
   return (
     <div className=" m-5 flex-grow mr-5 rounded-md bg-gradient-to-r from-blue-600 via-red-600 to-yellow-500 p-1">
       <div className="w-full h-full  p-5 rounded-md bg-neutral-400">
@@ -131,16 +137,16 @@ const Main = () => {
         </div>
         <>
           {openFavorite &&
-            (favoritesList.length === 0 ? (
-              <div className=" rounded-xl bg-gradient-to-r from-blue-600 via-red-600 to-yellow-500 p-1">
-                <div className=" p-16 rounded-md bg-neutral-400">
-                  <p className="flex text-center items-center justify-center text-5xl font-bold   text-white ">
+            (filteredFavorites.length === 0 ? (
+              <div className="rounded-xl bg-gradient-to-r from-blue-600 via-red-600 to-yellow-500 p-1">
+                <div className="p-8 lg:p-16 rounded-md bg-neutral-400">
+                  <p className="text-center text-3xl lg:text-5xl font-bold text-white">
                     Favorites list is empty
                   </p>
                 </div>
               </div>
             ) : (
-              favoritesList.map((favoriteId) => {
+              filteredFavorites.map((favoriteId) => {
                 const favoriteSong = MusicArray.find(
                   (song) => song.id === favoriteId
                 );
