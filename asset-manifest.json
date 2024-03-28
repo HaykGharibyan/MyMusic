@@ -1,7 +1,7 @@
 {
   "files": {
     "main.css": "/MyMusic/static/css/main.d5605e7b.css",
-    "main.js": "/MyMusic/static/js/main.2fdc532d.js",
+    "main.js": "/MyMusic/static/js/main.f1dad55a.js",
     "static/js/787.2efbd4af.chunk.js": "/MyMusic/static/js/787.2efbd4af.chunk.js",
     "static/media/aloooo.mp3": "/MyMusic/static/media/aloooo.12cd055598ebc7ad1391.mp3",
     "static/media/alooooo.mp3": "/MyMusic/static/media/alooooo.38bf5ccb5bc6170b593a.mp3",
@@ -10,11 +10,11 @@
     "static/media/alo.mp3": "/MyMusic/static/media/alo.40c20ecb037a8db62065.mp3",
     "index.html": "/MyMusic/index.html",
     "main.d5605e7b.css.map": "/MyMusic/static/css/main.d5605e7b.css.map",
-    "main.2fdc532d.js.map": "/MyMusic/static/js/main.2fdc532d.js.map",
+    "main.f1dad55a.js.map": "/MyMusic/static/js/main.f1dad55a.js.map",
     "787.2efbd4af.chunk.js.map": "/MyMusic/static/js/787.2efbd4af.chunk.js.map"
   },
   "entrypoints": [
     "static/css/main.d5605e7b.css",
-    "static/js/main.2fdc532d.js"
+    "static/js/main.f1dad55a.js"
   ]
 }
