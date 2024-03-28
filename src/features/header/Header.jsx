@@ -68,7 +68,7 @@ export default function Header() {
             <img
               src={favoriteMusicImg}
               alt="favorit Img"
-              className="w-16 cursor-pointer mx-3 "
+              className="w-16 cursor-pointer ml-2 md:mx-3 "
               onClick={openFavoriteList}
             />
           </div>

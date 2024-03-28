@@ -64,6 +64,17 @@ const Main = () => {
     }
   }, [currentTrackIndex]);
 
+  useEffect(() => {
+    const audioElements = document.querySelectorAll("audio");
+    audioElements.forEach((audio) => {
+      if (isAudioPlaying) {
+        audio.play();
+      } else {
+        audio.pause();
+      }
+    });
+  }, [isAudioPlaying]);
+
   const filteredMusic = MusicArray.filter(
     (item) =>
       item.genre.toLowerCase().includes(selectedGenre.toLowerCase()) &&
@@ -122,18 +133,14 @@ const Main = () => {
         </div>
         <div></div>
         <div className="flex flex-row justify-evenly text-xl font-bold bg-neutral-500 p-2 my-5">
-          <div className="w-1/6 pr-4 lg:px-2"> </div>
-          <div className="border-l w-full lg:pl-5">Artist Name</div>
+          <div className="w-1/6 lg:px-2 mr-5"> </div>
+          <div className="border-l w-full lg:pl-5 px-2">Artist Name</div>
           <div className="border-x w-full lg:pl-5 px-2">Song Name</div>
-          <div className="hidden lg:inline-block w-full pl-5 px-2">
-            {" "}
-            Genre
-          </div>{" "}
+          <div className="hidden lg:inline-block w-full pl-5 px-2">Genre</div>
           <div className="hidden lg:inline-block border-x w-full pl-5 px-2">
-            {" "}
             Track
           </div>
-          <div className="w-1/6 px-2"></div>
+          <div className="w-1/6 ml-2 lg:px-2"></div>
         </div>
         <>
           {openFavorite &&
@@ -153,7 +160,7 @@ const Main = () => {
                 return (
                   <div className="border-b-2" key={favoriteId}>
                     <div className="flex flex-row justify-evenly text-lg font-semibold bg-neutral-500 p-2">
-                      <div className="w-1/6 pr-4  flex items-center justify-between">
+                      <div className="w-1/6   flex items-center justify-between">
                         <img
                           src={bin}
                           alt=""
@@ -173,20 +180,20 @@ const Main = () => {
                           }}
                         />
                       </div>
-                      <div className="border-l w-full pl-5">
+                      <div className="border-l w-full  px-2">
                         {favoriteSong.artistName}
                       </div>
-                      <div className="border-l w-full pl-5 px-2">
+                      <div className="border-l w-full  px-2">
                         {favoriteSong.songName}
                       </div>{" "}
-                      <div className="  border-l w-full pl-5 px-2 hidden lg:inline-block ">
+                      <div className="  border-x w-full  px-2 hidden lg:inline-block ">
                         {favoriteSong.genre}
                       </div>
-                      <div className="border-l w-full pl-5 px-2 hidden lg:inline-block ">
+                      <div className="border-l w-full  px-2 hidden lg:inline-block ">
                         {" "}
                         {favoriteSong.id}
                       </div>
-                      <div className="w-1/6 px-2 flex items-center justify-center">
+                      <div className="w-1/6  lg:px-2 flex items-center justify-center">
                         <a
                           href={require(`../../music/${favoriteSong.src}`)}
                           download={favoriteSong.songName}
@@ -209,11 +216,11 @@ const Main = () => {
             {filteredMusic.map((item) => (
               <div className="border-b-2" key={item.id}>
                 <div className="flex flex-row justify-evenly text-lg font-semibold bg-neutral-500 p-2">
-                  <div className="w-1/6 pr-4  flex items-center justify-between">
+                  <div className="w-1/6 lg:px-2 mr-5  flex items-center gap-1 lg:gap-2 ">
                     <img
                       src={addIcon}
                       alt=""
-                      className="w-4 hover:scale-125 cursor-pointer"
+                      className="w-4 hover:scale-125  cursor-pointer"
                       onClick={() => {
                         addFavorites(item.id);
                       }}
@@ -231,18 +238,18 @@ const Main = () => {
                       }}
                     />
                   </div>
-                  <div className="border-l w-full pl-5">{item.artistName}</div>
-                  <div className="border-l w-full pl-5 px-2">
+                  <div className="border-l w-full px-2">{item.artistName}</div>
+                  <div className="border-x w-full  px-2">
                     {item.songName}
                   </div>{" "}
-                  <div className="border-l w-full pl-5 px-2 hidden lg:inline-block ">
+                  <div className="border-l w-full px-2 hidden lg:inline-block ">
                     {item.genre}
                   </div>
-                  <div className="border-l w-full pl-5 px-2 hidden lg:inline-block">
+                  <div className="border-x w-full  px-2 hidden lg:inline-block">
                     {" "}
                     {item.id}
                   </div>
-                  <div className="w-1/6 px-2 flex items-center border-l justify-center">
+                  <div className="w-1/6 ml-2  lg:px-2 flex items-center  justify-center">
                     <a
                       href={require(`../../music/${item.src}`)}
                       download={item.songName}
