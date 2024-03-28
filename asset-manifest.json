@@ -1,7 +1,7 @@
 {
   "files": {
-    "main.css": "/MyMusic/static/css/main.d5605e7b.css",
-    "main.js": "/MyMusic/static/js/main.f1dad55a.js",
+    "main.css": "/MyMusic/static/css/main.21325856.css",
+    "main.js": "/MyMusic/static/js/main.19ccd6a2.js",
     "static/js/787.2efbd4af.chunk.js": "/MyMusic/static/js/787.2efbd4af.chunk.js",
     "static/media/aloooo.mp3": "/MyMusic/static/media/aloooo.12cd055598ebc7ad1391.mp3",
     "static/media/alooooo.mp3": "/MyMusic/static/media/alooooo.38bf5ccb5bc6170b593a.mp3",
@@ -9,12 +9,12 @@
     "static/media/alooo.mp3": "/MyMusic/static/media/alooo.e5c20f093d6d584fb647.mp3",
     "static/media/alo.mp3": "/MyMusic/static/media/alo.40c20ecb037a8db62065.mp3",
     "index.html": "/MyMusic/index.html",
-    "main.d5605e7b.css.map": "/MyMusic/static/css/main.d5605e7b.css.map",
-    "main.f1dad55a.js.map": "/MyMusic/static/js/main.f1dad55a.js.map",
+    "main.21325856.css.map": "/MyMusic/static/css/main.21325856.css.map",
+    "main.19ccd6a2.js.map": "/MyMusic/static/js/main.19ccd6a2.js.map",
     "787.2efbd4af.chunk.js.map": "/MyMusic/static/js/787.2efbd4af.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.d5605e7b.css",
-    "static/js/main.f1dad55a.js"
+    "static/css/main.21325856.css",
+    "static/js/main.19ccd6a2.js"
   ]
 }
