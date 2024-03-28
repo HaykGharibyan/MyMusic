@@ -26,7 +26,11 @@ export default function Header() {
 
   return (
     <div className="bg-neutral-700">
-      <div className=" container mx-auto w-full h-full flex flex-row items-center justify-between bg-neutral-700">
+      <div
+        className={` container mx-auto w-full h-full flex flex-row items-center justify-between ${
+          isMenuOpen ? "bg-neutral-800" : "bg-neutral-700"
+        }`}
+      >
         <div className="mx-5 flex items-center">
           <img src={logo} alt="logo" className="w-16" />
           <strong className="mx-3 text-neutral-100 text-3xl whitespace-nowrap">
@@ -49,7 +53,9 @@ export default function Header() {
           />
         </div>
         <button
-          className=" mx-5 inline-block md:hidden"
+          className={` mx-5 inline-block md:hidden transition-transform ease-in-out duration-300 transform ${
+            isMenuOpen ? "rotate-180 " : "rotate-0"
+          }`}
           onClick={handleMenuClick}
         >
           <img src={menuIcon} alt="" />
