@@ -13,7 +13,7 @@ import {
   selectCanciErevaly,
   removeFromFavorites,
   loadMoreSongs,
-  setVisibleSongs, // Импортируем новый экшен
+  setVisibleSongs,
   selectVisibleSongs,
 } from "../main/mainSlice";
 import { selectSelectedGenre } from "../aside/genreSlice";
@@ -98,6 +98,8 @@ const Main = () => {
 
   const loadMore = () => {
     dispatch(setVisibleSongs(visibleSongs + 10));
+    if (visibleSongs === 29) {
+    }
   };
 
   return (
@@ -273,12 +275,18 @@ const Main = () => {
               </div>
             ))}
             <div className="flex justify-center">
-              <button
-                className="mt-5 py-2 px-4  border bg-gradient-to-r from-yellow-400 via-red-400 to-blue-400 rounded-lg text-white font-bold hover:bg-gradient-to-l hover:from-blue-500 hover:via-red-500 hover:to-yellow-500 transition duration-300 ease-in-out"
-                onClick={loadMore}
-              >
-                Загрузить еще
-              </button>
+              {filteredMusic.length > visibleSongs ? (
+                <button
+                  className="mt-5 py-2 px-4  border bg-gradient-to-r from-yellow-400 via-red-400 to-blue-400 rounded-lg text-white font-bold hover:bg-gradient-to-l hover:from-blue-500 hover:via-red-500 hover:to-yellow-500 transition duration-300 ease-in-out"
+                  onClick={loadMore}
+                >
+                  Load more
+                </button>
+              ) : (
+                <p className="mt-5 text-center text-gray-600">
+                  No more music for load
+                </p>
+              )}
             </div>
           </>
         )}
