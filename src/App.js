@@ -3,7 +3,6 @@ import Header from "./features/header/Header";
 import Main from "./features/main/Main";
 import Aside from "./features/aside/Aside";
 import Footer from "./features/footer/Footer";
-import Cucak from "./features/main/Cucak";
 
 function App() {
   return (

@@ -12,6 +12,9 @@ import {
   selectFavorites,
   selectCanciErevaly,
   removeFromFavorites,
+  loadMoreSongs,
+  setVisibleSongs, // Импортируем новый экшен
+  selectVisibleSongs,
 } from "../main/mainSlice";
 import { selectSelectedGenre } from "../aside/genreSlice";
 import playIcon from "../../img/play.png";
@@ -33,13 +36,19 @@ const Main = () => {
   const canciErevaly = useSelector(selectCanciErevaly);
   const [currentTrackIndex, setCurrentTrackIndex] = useState(0);
 
-  const toggleAudio = (id) => {
-    dispatch(toggleAudioPlaying(id));
-    dispatch(toggleAudioVisibility());
-  };
+  const visibleSongs = useSelector(selectVisibleSongs);
 
   const handleRemoveFromFavorites = (id) => {
     dispatch(removeFromFavorites(id));
+  };
+  const toggleAudio = (id) => {
+    if (isAudioPlaying && currentAudioId === id) {
+      dispatch(toggleAudioPlaying());
+    } else {
+      dispatch(toggleAudioPlaying(id));
+    }
+    dispatch(toggleAudioVisibility());
+    setCurrentTrackIndex(MusicArray.findIndex((item) => item.id === id));
   };
 
   const openFavorite = useSelector(selectFavoritesListVisibility);
@@ -73,7 +82,7 @@ const Main = () => {
         audio.pause();
       }
     });
-  }, [isAudioPlaying]);
+  });
 
   const filteredMusic = MusicArray.filter(
     (item) =>
@@ -87,6 +96,10 @@ const Main = () => {
       .includes(searchQuery.toLowerCase())
   );
 
+  const loadMore = () => {
+    dispatch(setVisibleSongs(visibleSongs + 10));
+  };
+
   return (
     <div className=" m-5 flex-grow mr-5 rounded-md bg-gradient-to-r from-blue-600 via-red-600 to-yellow-500 p-1">
       <div className="w-full h-full  p-5 rounded-md bg-neutral-400">
@@ -97,13 +110,7 @@ const Main = () => {
           >
             <img src={playIcon} alt="" className="w-5" /> Play All
           </button>
-          <button className="hidden lg:flex  items-center border-2 px-5 py-1 bg-neutral-100 font-bold rounded-md border-neutral-700 hover:scale-105 hover:bg-gradient-to-r from-yellow-400 via-red-400 to-blue-400">
-            <img src={addIcon} alt="" className="w-5" /> Add All
-          </button>
 
-          <button className="hidden lg:flex items-center border-2 px-5 py-1 bg-neutral-100 font-bold rounded-md border-neutral-700  hover:scale-105 hover:bg-gradient-to-r from-yellow-400 via-red-400 to-blue-400">
-            <img src={randomIcon} alt="" className="w-5 " /> Random Order
-          </button>
           {!isAudioVisible && (
             <>
               <audio
@@ -124,7 +131,7 @@ const Main = () => {
                     type="audio/mp3"
                     autoPlay={isAudioPlaying}
                     onEnded={handleAudioEnded}
-                    className=" w-[265px]  h-[36px] lg:h-[36px]  border-2 rounded-full border-neutral-700"
+                    className="w-[265px] h-[36px] lg:h-[36px] border-2 rounded-full border-neutral-700"
                   />
                 </>
               )}
@@ -160,7 +167,7 @@ const Main = () => {
                 return (
                   <div className="border-b-2" key={favoriteId}>
                     <div className="flex flex-row justify-evenly text-lg font-semibold bg-neutral-500 p-2">
-                      <div className="w-1/6   flex items-center justify-between">
+                      <div className="w-1/6 lg:px-2 mr-5  flex items-center gap-1 lg:gap-2">
                         <img
                           src={bin}
                           alt=""
@@ -180,16 +187,16 @@ const Main = () => {
                           }}
                         />
                       </div>
-                      <div className="border-l w-full  px-2">
+                      <div className="border-l truncate w-full  px-2">
                         {favoriteSong.artistName}
                       </div>
-                      <div className="border-l w-full  px-2">
+                      <div className="border-l truncate w-full  px-2">
                         {favoriteSong.songName}
                       </div>{" "}
-                      <div className="  border-x w-full  px-2 hidden lg:inline-block ">
+                      <div className="  border-x truncate w-full  px-2 hidden lg:inline-block ">
                         {favoriteSong.genre}
                       </div>
-                      <div className="border-l w-full  px-2 hidden lg:inline-block ">
+                      <div className="border-l truncate w-full  px-2 hidden lg:inline-block ">
                         {" "}
                         {favoriteSong.id}
                       </div>
@@ -213,7 +220,7 @@ const Main = () => {
         </>
         {canciErevaly && (
           <>
-            {filteredMusic.map((item) => (
+            {filteredMusic.slice(0, visibleSongs).map((item) => (
               <div className="border-b-2" key={item.id}>
                 <div className="flex flex-row justify-evenly text-lg font-semibold bg-neutral-500 p-2">
                   <div className="w-1/6 lg:px-2 mr-5  flex items-center gap-1 lg:gap-2 ">
@@ -238,15 +245,16 @@ const Main = () => {
                       }}
                     />
                   </div>
-                  <div className="border-l w-full px-2">{item.artistName}</div>
-                  <div className="border-x w-full  px-2">
+                  <div className="border-l  px-2 truncate w-full">
+                    {item.artistName}
+                  </div>
+                  <div className="border-x px-2 truncate w-full  ">
                     {item.songName}
-                  </div>{" "}
-                  <div className="border-l w-full px-2 hidden lg:inline-block ">
+                  </div>
+                  <div className="border-l truncate w-full px-2 hidden lg:inline-block ">
                     {item.genre}
                   </div>
-                  <div className="border-x w-full  px-2 hidden lg:inline-block">
-                    {" "}
+                  <div className="border-x truncate w-full  px-2 hidden lg:inline-block">
                     {item.id}
                   </div>
                   <div className="w-1/6 ml-2  lg:px-2 flex items-center  justify-center">
@@ -264,6 +272,14 @@ const Main = () => {
                 </div>
               </div>
             ))}
+            <div className="flex justify-center">
+              <button
+                className="mt-5 py-2 px-4  border bg-gradient-to-r from-yellow-400 via-red-400 to-blue-400 rounded-lg text-white font-bold hover:bg-gradient-to-l hover:from-blue-500 hover:via-red-500 hover:to-yellow-500 transition duration-300 ease-in-out"
+                onClick={loadMore}
+              >
+                Загрузить еще
+              </button>
+            </div>
           </>
         )}
       </div>

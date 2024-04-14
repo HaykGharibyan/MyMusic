@@ -17,13 +17,16 @@ const Aside = () => {
         <div className="w-full h-full p-5 rounded-md bg-neutral-400">
           <div className="flex items-center pb-4 justify-center">
             <img src={wavesImg} alt="icon" className="w-14" />
-            <p className="text-3xl underline font-extrabold mx-3">All music</p>
+            <a href="">
+              <p className="text-3xl underline font-extrabold mx-3 hover:scale-105  hover:text-white ">
+                All music
+              </p>
+            </a>
           </div>
           <hr />
           <div>
             <ul className="text-3xl px-7 space-y-1 py-3 font-mono bg-neutral-500 cursor-pointer">
               {[
-                { genre: "Popular" },
                 { genre: "Hip hop" },
                 { genre: "Classic" },
                 { genre: "Metal" },
@@ -38,7 +41,7 @@ const Aside = () => {
                   className={`border-b-2 px-2 ${
                     selectedGenre.toLowerCase() === item.genre.toLowerCase()
                       ? "scale-105 bg-gradient-to-r from-yellow-400 via-red-400 to-blue-400 text-white border-2 rounded-md"
-                      : "hover:scale-105 hover:bg-gradient-to-r from-yellow-400 via-red-400 to-blue-400 hover:text-white "
+                      : "hover:scale-105  hover:text-white "
                   }`}
                   onClick={() => handleGenreClick(item.genre)}
                 >

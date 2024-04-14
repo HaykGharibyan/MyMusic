@@ -17,6 +17,7 @@ export const audioSlice = createSlice({
     currentTrack: null,
     isPlaying: false,
     isMenuOpen: false,
+    visibleSongs: 13,
   },
 
   reducers: {
@@ -63,6 +64,9 @@ export const audioSlice = createSlice({
     setIsPlaying(state, action) {
       state.isPlaying = action.payload;
     },
+    setVisibleSongs: (state, action) => {
+      state.visibleSongs = action.payload;
+    },
   },
 });
 
@@ -80,6 +84,7 @@ export const {
   setCurrentTrack,
   setIsPlaying,
   toggleMenu,
+  setVisibleSongs,
 } = audioSlice.actions;
 
 export const removeFromFavorites = (id) => ({
@@ -96,7 +101,7 @@ export const selectFavorites = (state) => state.audio.favorites;
 export const selectFavoritesListVisibility = (state) =>
   state.audio.isFavoritesListVisibility;
 export const selectCanciErevaly = (state) => state.audio.canciErevaly;
-
 export const selectMenuState = (state) => state.audio.isMenuOpen;
+export const selectVisibleSongs = (state) => state.audio.visibleSongs;
 
 export default audioSlice.reducer;
