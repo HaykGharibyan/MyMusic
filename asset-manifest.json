@@ -1,7 +1,7 @@
 {
   "files": {
-    "main.css": "/MyMusic/static/css/main.f4bfb48e.css",
-    "main.js": "/MyMusic/static/js/main.1916df4e.js",
+    "main.css": "/MyMusic/static/css/main.fd55ff4a.css",
+    "main.js": "/MyMusic/static/js/main.5b86313e.js",
     "static/js/787.2efbd4af.chunk.js": "/MyMusic/static/js/787.2efbd4af.chunk.js",
     "static/media/Unscientific Italians - Throughout.mp3": "/MyMusic/static/media/Unscientific Italians - Throughout.cead51918dc72c84f1f4.mp3",
     "static/media/Sway & Tech - Follow for Now .mp3": "/MyMusic/static/media/Sway & Tech - Follow for Now .da7fc3efb1788f78465f.mp3",
@@ -33,12 +33,12 @@
     "static/media/Beneath My Shade – Catharsis.mp3": "/MyMusic/static/media/Beneath My Shade – Catharsis.dbb933ec07a5d9eb34b7.mp3",
     "static/media/Pagan - Il Malocchio Si Apre.mp3": "/MyMusic/static/media/Pagan - Il Malocchio Si Apre.b999eb5ff6158242e0d6.mp3",
     "index.html": "/MyMusic/index.html",
-    "main.f4bfb48e.css.map": "/MyMusic/static/css/main.f4bfb48e.css.map",
-    "main.1916df4e.js.map": "/MyMusic/static/js/main.1916df4e.js.map",
+    "main.fd55ff4a.css.map": "/MyMusic/static/css/main.fd55ff4a.css.map",
+    "main.5b86313e.js.map": "/MyMusic/static/js/main.5b86313e.js.map",
     "787.2efbd4af.chunk.js.map": "/MyMusic/static/js/787.2efbd4af.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.f4bfb48e.css",
-    "static/js/main.1916df4e.js"
+    "static/css/main.fd55ff4a.css",
+    "static/js/main.5b86313e.js"
   ]
 }
