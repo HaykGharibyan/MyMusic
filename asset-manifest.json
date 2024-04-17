@@ -1,7 +1,7 @@
 {
   "files": {
     "main.css": "/MyMusic/static/css/main.fd55ff4a.css",
-    "main.js": "/MyMusic/static/js/main.207be842.js",
+    "main.js": "/MyMusic/static/js/main.937ae1d4.js",
     "static/js/787.2efbd4af.chunk.js": "/MyMusic/static/js/787.2efbd4af.chunk.js",
     "static/media/Unscientific Italians - Throughout.mp3": "/MyMusic/static/media/Unscientific Italians - Throughout.cead51918dc72c84f1f4.mp3",
     "static/media/Sway & Tech - Follow for Now .mp3": "/MyMusic/static/media/Sway & Tech - Follow for Now .da7fc3efb1788f78465f.mp3",
@@ -34,11 +34,11 @@
     "static/media/Pagan - Il Malocchio Si Apre.mp3": "/MyMusic/static/media/Pagan - Il Malocchio Si Apre.b999eb5ff6158242e0d6.mp3",
     "index.html": "/MyMusic/index.html",
     "main.fd55ff4a.css.map": "/MyMusic/static/css/main.fd55ff4a.css.map",
-    "main.207be842.js.map": "/MyMusic/static/js/main.207be842.js.map",
+    "main.937ae1d4.js.map": "/MyMusic/static/js/main.937ae1d4.js.map",
     "787.2efbd4af.chunk.js.map": "/MyMusic/static/js/787.2efbd4af.chunk.js.map"
   },
   "entrypoints": [
     "static/css/main.fd55ff4a.css",
-    "static/js/main.207be842.js"
+    "static/js/main.937ae1d4.js"
   ]
 }
