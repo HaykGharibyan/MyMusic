@@ -25,40 +25,53 @@ import MusicArray from "./MusicArray";
 import bin from "../../img/bin.png";
 
 const Main = () => {
+  const [pageLoaded, setPageLoaded] = useState(false);
+  const [currentTrackIndex, setCurrentTrackIndex] = useState(0);
+  const [isAudioReady, setIsAudioReady] = useState(false);
+
   const isAudioVisible = useSelector(selectAudioVisibility);
   const isAudioPlaying = useSelector(selectAudioPlaying);
   const currentAudioId = useSelector(selectCurrentAudioId);
   const searchQuery = useSelector(selectSearchQuery);
   const selectedGenre = useSelector(selectSelectedGenre);
   const favoritesList = useSelector(selectFavorites);
-  const dispatch = useDispatch();
   const canciErevaly = useSelector(selectCanciErevaly);
-  const [currentTrackIndex, setCurrentTrackIndex] = useState(0);
-
+  const openFavorite = useSelector(selectFavoritesListVisibility);
   const visibleSongs = useSelector(selectVisibleSongs);
+
+  const dispatch = useDispatch();
 
   const handleRemoveFromFavorites = (id) => {
     dispatch(removeFromFavorites(id));
   };
-  const toggleAudio = (id) => {
-    if (isAudioPlaying && currentAudioId === id) {
-      dispatch(toggleAudioPlaying());
-    } else {
-      dispatch(toggleAudioPlaying(id));
-    }
-    dispatch(toggleAudioVisibility());
-    setCurrentTrackIndex(MusicArray.findIndex((item) => item.id === id));
-  };
-
-  const openFavorite = useSelector(selectFavoritesListVisibility);
 
   const addFavorites = (id) => {
     dispatch(toggleAddFavoritesList(id));
   };
+  useEffect(() => {
+    if (!pageLoaded) {
+      setPageLoaded(true);
+    }
+  }, []);
+
+  const toggleAudio = (id) => {
+    dispatch(toggleAudioVisibility());
+
+    dispatch(toggleAudioPlaying(id));
+    setTimeout(() => {
+      setCurrentTrackIndex(MusicArray.findIndex((item) => item.id === id));
+    }, 100);
+  };
+
   const handleAudioEnded = () => {
     dispatch(toggleAudioPlaying());
     dispatch(toggleAudioVisibility());
-    setCurrentTrackIndex(currentTrackIndex + 1);
+
+    if (currentTrackIndex < MusicArray.length - 1) {
+      setCurrentTrackIndex(currentTrackIndex + 1);
+    } else {
+      setCurrentTrackIndex(0);
+    }
   };
 
   const playAllTracks = () => {
@@ -67,10 +80,14 @@ const Main = () => {
   };
 
   useEffect(() => {
-    if (currentTrackIndex < MusicArray.length) {
+    if (currentTrackIndex < MusicArray.length && pageLoaded) {
       toggleAudio(MusicArray[currentTrackIndex].id);
     }
-  }, [currentTrackIndex]);
+  }, [currentTrackIndex, pageLoaded]);
+
+  useEffect(() => {
+    setPageLoaded(true);
+  }, []);
 
   const filteredMusic = MusicArray.filter(
     (item) =>
@@ -210,7 +227,7 @@ const Main = () => {
           {canciErevaly && (
             <>
               {filteredMusic.slice(0, visibleSongs).map((item) => (
-                <div className="border-b-2 " key={item.id}>
+                <div className="border-b-2  " key={item.id}>
                   <div className="flex text-sm  flex-row justify-evenly lg:text-lg font-semibold bg-neutral-500 p-2">
                     <div className="w-1/6 lg:px-2 mr-5  flex items-center gap-1 lg:gap-2 ">
                       <img
@@ -234,7 +251,7 @@ const Main = () => {
                         }}
                       />
                     </div>
-                    <div className="border-l  px-2   w-full truncate ">
+                    <div className="text border-l  px-2   w-full truncate ">
                       {item.artistName}
                     </div>
                     <div className="border-x px-2  w-full truncate  ">
@@ -261,7 +278,7 @@ const Main = () => {
                   </div>
                 </div>
               ))}
-              <div className="flex justify-center">
+              <div className="flex  alo justify-center">
                 {filteredMusic.length > visibleSongs ? (
                   <button
                     className="mt-5 py-2 px-4  border bg-gradient-to-r from-yellow-400 via-red-400 to-blue-400 rounded-lg text-white font-bold hover:bg-gradient-to-l hover:from-blue-500 hover:via-red-500 hover:to-yellow-500 transition duration-300 ease-in-out"
