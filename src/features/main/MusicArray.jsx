@@ -181,25 +181,19 @@ const MusicArray = [
     id: "26",
     genre: "Jazz",
   },
-  {
-    songName: "Wild Eyes",
-    artistName: "Martti Vesala Soundpost Quintet ",
-    src: "Martti Vesala Soundpost Quintet - Wild Eyes.mp3",
-    id: "27",
-    genre: "Jazz",
-  },
+
   {
     songName: "Throughout",
     artistName: "Unscientific Italians ",
     src: "Unscientific Italians - Throughout.mp3",
-    id: "28",
+    id: "27",
     genre: "Jazz",
   },
   {
     songName: "Echo Sax End",
     artistName: "Caleb Arredondo",
     src: "Caleb Arredondo - Echo Sax End.mp3",
-    id: "29",
+    id: "28",
     genre: "Jazz",
   },
 ];
