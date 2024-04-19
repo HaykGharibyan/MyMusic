@@ -10,7 +10,7 @@ import {
   toggleAddFavoritesList,
   selectFavoritesListVisibility,
   selectFavorites,
-  selectCanciErevaly,
+  selectMainPageVisibility,
   removeFromFavorites,
   setVisibleSongs,
   selectVisibleSongs,
@@ -33,7 +33,7 @@ const Main = () => {
   const searchQuery = useSelector(selectSearchQuery);
   const selectedGenre = useSelector(selectSelectedGenre);
   const favoritesList = useSelector(selectFavorites);
-  const canciErevaly = useSelector(selectCanciErevaly);
+  const mainPageVisibility = useSelector(selectMainPageVisibility);
   const openFavorite = useSelector(selectFavoritesListVisibility);
   const visibleSongs = useSelector(selectVisibleSongs);
 
@@ -216,7 +216,7 @@ const Main = () => {
             ))}
         </>
         <div>
-          {canciErevaly && (
+          {mainPageVisibility && (
             <>
               {filteredMusic.slice(0, visibleSongs).map((item) => (
                 <div className="border-b-2  " key={item.id}>

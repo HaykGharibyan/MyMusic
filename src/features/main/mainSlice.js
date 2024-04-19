@@ -9,7 +9,7 @@ export const audioSlice = createSlice({
       isPlaying: false,
     },
     isFavoritesListVisibility: false,
-    canciErevaly: true,
+    mainPageVisibility: true,
     randomOrder: false,
     searchQuery: "",
     favorites: [],
@@ -41,7 +41,7 @@ export const audioSlice = createSlice({
     },
     toggleFavoritesListVisibility: (state) => {
       state.isFavoritesListVisibility = !state.isFavoritesListVisibility;
-      state.canciErevaly = !state.canciErevaly;
+      state.mainPageVisibility = !state.mainPageVisibility;
     },
     toggleAddFavoritesList: (state, action) => {
       state.favorites.push(action.payload);
@@ -89,7 +89,8 @@ export const selectCurrentAudio = (state) => state.audio.currentAudio;
 export const selectFavorites = (state) => state.audio.favorites;
 export const selectFavoritesListVisibility = (state) =>
   state.audio.isFavoritesListVisibility;
-export const selectCanciErevaly = (state) => state.audio.canciErevaly;
+export const selectMainPageVisibility = (state) =>
+  state.audio.mainPageVisibility;
 export const selectMenuState = (state) => state.audio.isMenuOpen;
 export const selectVisibleSongs = (state) => state.audio.visibleSongs;
 export const selectAudioPlaying = (state) => state.audio.currentAudio.isPlaying;
