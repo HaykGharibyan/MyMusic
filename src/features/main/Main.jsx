@@ -25,9 +25,7 @@ import MusicArray from "./MusicArray";
 import bin from "../../img/bin.png";
 
 const Main = () => {
-  const [pageLoaded, setPageLoaded] = useState(false);
   const [currentTrackIndex, setCurrentTrackIndex] = useState(0);
-  const [isAudioReady, setIsAudioReady] = useState(false);
 
   const isAudioVisible = useSelector(selectAudioVisibility);
   const isAudioPlaying = useSelector(selectAudioPlaying);
@@ -48,22 +46,21 @@ const Main = () => {
   const addFavorites = (id) => {
     dispatch(toggleAddFavoritesList(id));
   };
-  useEffect(() => {
-    if (!pageLoaded) {
-      setPageLoaded(true);
-    }
-  }, []);
 
   const toggleAudio = (id) => {
     dispatch(toggleAudioVisibility());
-
     dispatch(toggleAudioPlaying(id));
+    console.log("1");
     setTimeout(() => {
-      setCurrentTrackIndex(MusicArray.findIndex((item) => item.id === id));
+      if (isAudioPlaying) {
+        setCurrentTrackIndex(MusicArray.findIndex((item) => item.id === id));
+        console.log("2");
+      }
     }, 100);
   };
 
   const handleAudioEnded = () => {
+    console.log("3");
     dispatch(toggleAudioPlaying());
     dispatch(toggleAudioVisibility());
 
@@ -80,14 +77,10 @@ const Main = () => {
   };
 
   useEffect(() => {
-    if (currentTrackIndex < MusicArray.length && pageLoaded) {
+    if (currentTrackIndex < MusicArray.length) {
       toggleAudio(MusicArray[currentTrackIndex].id);
     }
-  }, [currentTrackIndex, pageLoaded]);
-
-  useEffect(() => {
-    setPageLoaded(true);
-  }, []);
+  }, [currentTrackIndex]);
 
   const filteredMusic = MusicArray.filter(
     (item) =>
