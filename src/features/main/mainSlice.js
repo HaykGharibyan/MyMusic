@@ -4,18 +4,18 @@ export const audioSlice = createSlice({
   name: "audio",
   initialState: {
     isAudioVisible: false,
-    isAudioPlaying: false,
+    currentAudio: {
+      id: null,
+      isPlaying: false,
+    },
     isFavoritesListVisibility: false,
     canciErevaly: true,
-    currentAudioId: null,
     randomOrder: false,
     searchQuery: "",
     favorites: [],
     tracks: [],
     currentPage: 1,
     isLoading: true,
-    currentTrack: null,
-    isPlaying: false,
     isMenuOpen: false,
     visibleSongs: 13,
   },
@@ -28,8 +28,10 @@ export const audioSlice = createSlice({
       state.isAudioVisible = !state.isAudioVisible;
     },
     toggleAudioPlaying: (state, action) => {
-      state.isAudioPlaying = !state.isAudioPlaying;
-      state.currentAudioId = action.payload;
+      state.currentAudio = {
+        id: action.payload,
+        isPlaying: !state.currentAudio.isPlaying,
+      };
     },
     setRandomOrder: (state) => {
       state.randomOrder = true;
@@ -41,10 +43,8 @@ export const audioSlice = createSlice({
       state.isFavoritesListVisibility = !state.isFavoritesListVisibility;
       state.canciErevaly = !state.canciErevaly;
     },
-
     toggleAddFavoritesList: (state, action) => {
-      state.currentAudioId = action.payload;
-      state.favorites.push(state.currentAudioId);
+      state.favorites.push(action.payload);
     },
     removeFromFavorites: (state, action) => {
       state.favorites = state.favorites.filter((id) => id !== action.payload);
@@ -58,12 +58,6 @@ export const audioSlice = createSlice({
     setIsLoading(state, action) {
       state.isLoading = action.payload;
     },
-    setCurrentTrack(state, action) {
-      state.currentTrack = action.payload;
-    },
-    setIsPlaying(state, action) {
-      state.isPlaying = action.payload;
-    },
     setVisibleSongs: (state, action) => {
       state.visibleSongs = action.payload;
     },
@@ -76,13 +70,10 @@ export const {
   toggleAudioPlaying,
   setRandomOrder,
   setSearchQuery,
-  toggleDeleteFavorite,
   toggleAddFavoritesList,
   setTracks,
   setCurrentPage,
   setIsLoading,
-  setCurrentTrack,
-  setIsPlaying,
   toggleMenu,
   setVisibleSongs,
 } = audioSlice.actions;
@@ -94,14 +85,14 @@ export const removeFromFavorites = (id) => ({
 
 export const selectSearchQuery = (state) => state.audio.searchQuery;
 export const selectAudioVisibility = (state) => state.audio.isAudioVisible;
-export const selectAudioPlaying = (state) => state.audio.isAudioPlaying;
-export const selectCurrentAudioId = (state) => state.audio.currentAudioId;
-export const selectRandomOrder = (state) => state.audio.randomOrder;
+export const selectCurrentAudio = (state) => state.audio.currentAudio;
 export const selectFavorites = (state) => state.audio.favorites;
 export const selectFavoritesListVisibility = (state) =>
   state.audio.isFavoritesListVisibility;
 export const selectCanciErevaly = (state) => state.audio.canciErevaly;
 export const selectMenuState = (state) => state.audio.isMenuOpen;
 export const selectVisibleSongs = (state) => state.audio.visibleSongs;
+export const selectAudioPlaying = (state) => state.audio.currentAudio.isPlaying;
+export const selectCurrentAudioId = (state) => state.audio.currentAudio.id;
 
 export default audioSlice.reducer;

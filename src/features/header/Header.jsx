@@ -46,7 +46,7 @@ export default function Header() {
           />
           <input
             type="text"
-            placeholder="Search Music"
+            placeholder=" Write Song Name"
             value={searchQuery}
             onChange={(e) => dispatch(setSearchQuery(e.target.value))}
             className="block bg-white w-64 border rounded-md py-2 pl-4 pr-3 shadow-sm focus:outline-none focus:border-sky-500 focus:ring-sky-500 focus:ring-1 sm:text-sm "
@@ -66,7 +66,7 @@ export default function Header() {
           <div className=" mx-5 flex items-center">
             <input
               type="text"
-              placeholder="Search Music"
+              placeholder=" Write Song Name "
               value={searchQuery}
               onChange={(e) => dispatch(setSearchQuery(e.target.value))}
               className="block bg-white w-64 border rounded-md py-2 pl-4 pr-3 shadow-sm focus:outline-none focus:border-sky-500 focus:ring-sky-500 focus:ring-1 sm:text-sm "
