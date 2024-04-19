@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import {
   toggleAudioVisibility,
@@ -14,6 +14,8 @@ import {
   removeFromFavorites,
   setVisibleSongs,
   selectVisibleSongs,
+  setCurrentTrackIndex,
+  selectCurrentTrackIndex,
 } from "../main/mainSlice";
 import { selectSelectedGenre } from "../aside/genreSlice";
 import playIcon from "../../img/play.png";
@@ -25,8 +27,7 @@ import MusicArray from "./MusicArray";
 import bin from "../../img/bin.png";
 
 const Main = () => {
-  const [currentTrackIndex, setCurrentTrackIndex] = useState(0);
-
+  const currentTrackIndex = useSelector(selectCurrentTrackIndex);
   const isAudioVisible = useSelector(selectAudioVisibility);
   const isAudioPlaying = useSelector(selectAudioPlaying);
   const currentAudioId = useSelector(selectCurrentAudioId);
@@ -50,17 +51,15 @@ const Main = () => {
   const toggleAudio = (id) => {
     dispatch(toggleAudioVisibility());
     dispatch(toggleAudioPlaying(id));
-    console.log("1");
+
     setTimeout(() => {
       if (isAudioPlaying) {
         setCurrentTrackIndex(MusicArray.findIndex((item) => item.id === id));
-        console.log("2");
       }
     }, 100);
   };
 
   const handleAudioEnded = () => {
-    console.log("3");
     dispatch(toggleAudioPlaying());
     dispatch(toggleAudioVisibility());
 
