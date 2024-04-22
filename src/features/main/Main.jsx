@@ -52,11 +52,9 @@ const Main = () => {
     dispatch(toggleAudioVisibility());
     dispatch(toggleAudioPlaying(id));
 
-    setTimeout(() => {
-      if (isAudioPlaying) {
-        setCurrentTrackIndex(MusicArray.findIndex((item) => item.id === id));
-      }
-    }, 100);
+    const newIndex = MusicArray.findIndex((item) => item.id === id);
+
+    dispatch(setCurrentTrackIndex(newIndex));
   };
 
   const handleAudioEnded = () => {
@@ -190,7 +188,7 @@ const Main = () => {
                       <div className="border-x px-2  w-full truncate  ">
                         {favoriteSong.songName}
                       </div>{" "}
-                      <div className="border-l  w-full px-2 hidden truncate lg:inline-block ">
+                      <div className=" w-full px-2 hidden truncate lg:inline-block ">
                         {favoriteSong.genre}
                       </div>
                       <div className="border-x  w-full  px-2 hidden  truncate lg:inline-block">
@@ -248,7 +246,7 @@ const Main = () => {
                     <div className="border-x px-2  w-full truncate  ">
                       {item.songName}
                     </div>
-                    <div className="border-l  w-full px-2 hidden truncate lg:inline-block ">
+                    <div className="  w-full px-2 hidden truncate lg:inline-block ">
                       {item.genre}
                     </div>
                     <div className="border-x  w-full  px-2 hidden  truncate lg:inline-block">
