@@ -21,7 +21,8 @@ import { selectSelectedGenre } from "../aside/genreSlice";
 import playIcon from "../../img/play.png";
 import pauseIcon from "../../img/pause.png";
 import addIcon from "../../img/plus.png";
-
+import right from "../../img/right.png";
+import left from "../../img/left.png";
 import downloadIcon from "../../img/downloads.png";
 import MusicArray from "./MusicArray";
 import bin from "../../img/bin.png";
@@ -67,6 +68,17 @@ const Main = () => {
       setCurrentTrackIndex(0);
     }
   };
+  const nextTrack = () => {
+    if (currentTrackIndex < MusicArray.length - 1) {
+      toggleAudio(MusicArray[currentTrackIndex + 1].id);
+    }
+  };
+
+  const previousTrack = () => {
+    if (currentTrackIndex > 0) {
+      toggleAudio(MusicArray[currentTrackIndex - 1].id);
+    }
+  };
 
   const playAllTracks = () => {
     setCurrentTrackIndex(0);
@@ -105,28 +117,40 @@ const Main = () => {
           >
             <img src={playIcon} alt="" className="w-5" /> Play All
           </button>
-
           {!isAudioVisible && (
             <>
               <audio
                 controls
                 src=""
                 type="audio/mp3"
-                className="w-[265px]  h-[36px]  border-2 rounded-full border-neutral-700   "
+                className=" w-[200px]  h-[30px] lg:w-[265px]  lg:h-[36px]  border-2 rounded-full border-neutral-700   "
               />
             </>
           )}
+
           {MusicArray.map((item) => (
             <>
               {isAudioVisible && currentAudioId === item.id && (
                 <>
+                  <img
+                    src={left}
+                    alt="left icon"
+                    onClick={previousTrack}
+                    className="lg:-mr-16 w-6 h-6 lg:w-10 m-auto lg:h-10 hover:scale-105"
+                  />
                   <audio
                     controls
                     src={require(`../../music/${item.src}`)}
                     type="audio/mp3"
                     autoPlay={isAudioPlaying}
                     onEnded={handleAudioEnded}
-                    className="w-[265px] h-[36px] lg:h-[36px]  border-2 rounded-full border-neutral-700"
+                    className="  w-[200px]  h-[30px]  m-auto lg:w-[265px]  lg:h-[36px]  border-2 rounded-full border-neutral-700"
+                  />
+                  <img
+                    src={right}
+                    alt="right icon"
+                    onClick={nextTrack}
+                    className="lg:-ml-16 w-6 h-6 lg:w-10 m-auto lg:h-10  hover:scale-105 "
                   />
                 </>
               )}
