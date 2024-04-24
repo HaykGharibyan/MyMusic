@@ -26,6 +26,8 @@ import left from "../../img/left.png";
 import downloadIcon from "../../img/downloads.png";
 import MusicArray from "./MusicArray";
 import bin from "../../img/bin.png";
+import noneleft from "../../img/noneleft.png";
+import noneright from "../../img/noneright.png";
 
 const Main = () => {
   const currentTrackIndex = useSelector(selectCurrentTrackIndex);
@@ -78,6 +80,8 @@ const Main = () => {
     if (currentTrackIndex > 0) {
       toggleAudio(MusicArray[currentTrackIndex - 1].id);
     }
+    if (currentTrackIndex === 0) {
+    }
   };
 
   const playAllTracks = () => {
@@ -110,12 +114,12 @@ const Main = () => {
   return (
     <div className=" m-5 flex-grow mr-5 rounded-md bg-gradient-to-r from-blue-600 via-red-600 to-yellow-500 p-1">
       <div className="w-full h-full  p-5 rounded-md bg-neutral-400">
-        <div className="flex flex-row justify-evenly bg-neutral-500 p-3 rounded-lg border-2 border-neutral-700">
+        <div className="flex flex-row justify-center lg:justify-between bg-neutral-500 p-3 rounded-lg border-2 border-neutral-700">
           <button
-            className=" hidden lg:flex items-center border-2 px-5 py-1 bg-neutral-100 font-bold rounded-md border-neutral-700 hover:scale-105 hover:bg-gradient-to-r from-yellow-400 via-red-400 to-blue-400"
+            className=" ml-10 hidden lg:flex items-center border-2 px-5 py-1 bg-neutral-100 font-bold rounded-md border-neutral-700 hover:scale-105 hover:bg-gradient-to-r from-yellow-400 via-red-400 to-blue-400"
             onClick={playAllTracks}
           >
-            <img src={playIcon} alt="" className="w-5" /> Play All
+            <img src={playIcon} alt="" className="  w-5" /> Play All
           </button>
           {!isAudioVisible && (
             <>
@@ -123,7 +127,7 @@ const Main = () => {
                 controls
                 src=""
                 type="audio/mp3"
-                className=" w-[200px]  h-[30px] lg:w-[265px]  lg:h-[36px]  border-2 rounded-full border-neutral-700   "
+                className=" lg:mr-10 w-[200px]  h-[30px] lg:w-[265px]  lg:h-[36px]  border-2 rounded-full border-neutral-700   "
               />
             </>
           )}
@@ -131,12 +135,12 @@ const Main = () => {
           {MusicArray.map((item) => (
             <>
               {isAudioVisible && currentAudioId === item.id && (
-                <>
+                <div className=" flex gap-2 justify-center items-center ">
                   <img
-                    src={left}
+                    src={currentTrackIndex === 0 ? noneleft : left}
                     alt="left icon"
                     onClick={previousTrack}
-                    className="lg:-mr-16 w-6 h-6 lg:w-10 m-auto lg:h-10 hover:scale-105"
+                    className="w-6 h-6 lg:w-8 lg:h-8 hover:scale-105"
                   />
                   <audio
                     controls
@@ -144,15 +148,19 @@ const Main = () => {
                     type="audio/mp3"
                     autoPlay={isAudioPlaying}
                     onEnded={handleAudioEnded}
-                    className="  w-[200px]  h-[30px]  m-auto lg:w-[265px]  lg:h-[36px]  border-2 rounded-full border-neutral-700"
+                    className="  w-[200px]  h-[30px]  lg:w-[265px]  lg:h-[36px]  border-2 rounded-full border-neutral-700"
                   />
                   <img
-                    src={right}
+                    src={
+                      currentTrackIndex < MusicArray.length - 1
+                        ? right
+                        : noneright
+                    }
                     alt="right icon"
                     onClick={nextTrack}
-                    className="lg:-ml-16 w-6 h-6 lg:w-10 m-auto lg:h-10  hover:scale-105 "
+                    className=" w-6 h-6 lg:w-8   lg:h-8  hover:scale-105 transition-all duration-300 ease-in-out "
                   />
-                </>
+                </div>
               )}
             </>
           ))}
