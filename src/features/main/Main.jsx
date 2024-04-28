@@ -71,30 +71,25 @@ const Main = () => {
     }
   };
   const nextTrack = () => {
-    // Получаем отфильтрованный массив музыки
     const filteredMusic = MusicArray.filter((item) =>
       item.genre.toLowerCase().includes(selectedGenre.toLowerCase())
     );
 
-    // Проверяем, что текущий индекс меньше длины отфильтрованного массива минус 1
     if (
       currentTrackIndex < filteredMusic.length - 1 ||
       currentTrackIndex > filteredMusic.length - 1
     ) {
-      // Увеличиваем текущий индекс на 1 и переключаемся на следующий трек
       const nextIndex = filteredMusic.findIndex(
         (item) => item.id === MusicArray[currentTrackIndex + 1].id
       );
 
       if (nextIndex !== -1) {
-        // Если предыдущий трек найден, переключаемся на него
         toggleAudio(filteredMusic[nextIndex].id);
       }
     }
   };
 
   const previousTrack = () => {
-    // Получаем отфильтрованный массив музыки
     const filteredMusic = MusicArray.filter(
       (item) =>
         item.genre.toLowerCase().includes(selectedGenre.toLowerCase()) &&
@@ -102,12 +97,10 @@ const Main = () => {
     );
 
     if (currentTrackIndex > 0) {
-      // Ищем индекс предыдущего трека в отфильтрованном массиве
       const previousIndex = filteredMusic.findIndex(
         (item) => item.id === MusicArray[currentTrackIndex - 1].id
       );
       if (previousIndex !== -1) {
-        // Если предыдущий трек найден, переключаемся на него
         toggleAudio(filteredMusic[previousIndex].id);
       }
     }
@@ -165,21 +158,23 @@ const Main = () => {
             <>
               {isAudioVisible && currentAudioId === item.id && (
                 <div className=" flex gap-2 justify-center items-center ">
-                  <img
-                    src={
-                      currentTrackIndex === 0 ||
-                      (filteredMusic.length > 0 &&
-                        currentTrackIndex ===
-                          MusicArray.findIndex(
-                            (item) => item.id === filteredMusic[0].id
-                          ))
-                        ? noneleft
-                        : left
-                    }
-                    alt="left icon"
-                    onClick={previousTrack}
-                    className="w-6 h-6 lg:w-8 lg:h-8 hover:scale-105"
-                  />
+                  {!openFavorite && (
+                    <img
+                      src={
+                        currentTrackIndex === 0 ||
+                        (filteredMusic.length > 0 &&
+                          currentTrackIndex ===
+                            MusicArray.findIndex(
+                              (item) => item.id === filteredMusic[0].id
+                            ))
+                          ? noneleft
+                          : left
+                      }
+                      alt="left icon"
+                      onClick={previousTrack}
+                      className="w-6 h-6 lg:w-8 lg:h-8 hover:scale-105"
+                    />
+                  )}
                   <audio
                     controls
                     src={require(`../../music/${item.src}`)}
@@ -188,22 +183,24 @@ const Main = () => {
                     onEnded={handleAudioEnded}
                     className="  w-[200px]  h-[30px]  lg:w-[265px]  lg:h-[36px]  border-2 rounded-full border-neutral-700"
                   />
-                  <img
-                    src={
-                      currentTrackIndex < MusicArray.length - 1 &&
-                      currentTrackIndex !==
-                        MusicArray.findIndex(
-                          (item) =>
-                            item.id ===
-                            filteredMusic[filteredMusic.length - 1].id
-                        )
-                        ? right
-                        : noneright
-                    }
-                    alt="right icon"
-                    onClick={nextTrack}
-                    className="w-6 h-6 lg:w-8 lg:h-8 hover:scale-105 transition-all duration-300 ease-in-out"
-                  />
+                  {!openFavorite && (
+                    <img
+                      src={
+                        currentTrackIndex < MusicArray.length - 1 &&
+                        currentTrackIndex !==
+                          MusicArray.findIndex(
+                            (item) =>
+                              item.id ===
+                              filteredMusic[filteredMusic.length - 1].id
+                          )
+                          ? right
+                          : noneright
+                      }
+                      alt="right icon"
+                      onClick={nextTrack}
+                      className="w-6 h-6 lg:w-8 lg:h-8 hover:scale-105 transition-all duration-300 ease-in-out"
+                    />
+                  )}
                 </div>
               )}
             </>
