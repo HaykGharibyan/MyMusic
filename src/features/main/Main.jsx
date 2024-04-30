@@ -59,17 +59,18 @@ const Main = () => {
 
     dispatch(setCurrentTrackIndex(newIndex));
   };
-
   const handleAudioEnded = () => {
-    dispatch(toggleAudioPlaying());
-    dispatch(toggleAudioVisibility());
-
     if (currentTrackIndex < MusicArray.length - 1) {
-      setCurrentTrackIndex(currentTrackIndex + 1);
+      toggleAudio(MusicArray[currentTrackIndex + 1].id);
+      console.log(currentTrackIndex);
+      if (currentTrackIndex === 12 || currentTrackIndex === 22) {
+        loadMore();
+      }
     } else {
-      setCurrentTrackIndex(0);
+      toggleAudio(MusicArray[0].id);
     }
   };
+
   const nextTrack = () => {
     const filteredMusic = MusicArray.filter((item) =>
       item.genre.toLowerCase().includes(selectedGenre.toLowerCase())
@@ -85,6 +86,10 @@ const Main = () => {
 
       if (nextIndex !== -1) {
         toggleAudio(filteredMusic[nextIndex].id);
+        console.log(currentTrackIndex);
+      }
+      if (nextIndex === 13 || nextIndex === 23) {
+        loadMore();
       }
     }
   };
@@ -108,13 +113,12 @@ const Main = () => {
 
   const playAllTracks = () => {
     setCurrentTrackIndex(0);
-    toggleAudio(MusicArray[currentTrackIndex].id);
+    toggleAudio(MusicArray[0].id);
   };
 
   useEffect(() => {
-    if (currentTrackIndex < MusicArray.length) {
-      toggleAudio(MusicArray[currentTrackIndex].id);
-    }
+    // Вызываем toggleAudio после обновления currentTrackIndex
+    toggleAudio(MusicArray[currentTrackIndex].id);
   }, [currentTrackIndex]);
 
   const filteredMusic = MusicArray.filter(
