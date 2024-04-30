@@ -49,6 +49,7 @@ const Main = () => {
 
   const addFavorites = (id) => {
     dispatch(toggleAddFavoritesList(id));
+    console.log(favoritesList);
   };
 
   const toggleAudio = (id) => {
@@ -59,15 +60,26 @@ const Main = () => {
 
     dispatch(setCurrentTrackIndex(newIndex));
   };
+
   const handleAudioEnded = () => {
-    if (currentTrackIndex < MusicArray.length - 1) {
-      toggleAudio(MusicArray[currentTrackIndex + 1].id);
-      console.log(currentTrackIndex);
-      if (currentTrackIndex === 12 || currentTrackIndex === 22) {
-        loadMore();
+    if (openFavorite) {
+      const currentIndex = favoritesList.findIndex(
+        (id) => id === currentAudioId
+      );
+      if (currentIndex < favoritesList.length - 1) {
+        toggleAudio(favoritesList[currentIndex + 1]);
+      } else {
+        toggleAudio(favoritesList[0]);
       }
     } else {
-      toggleAudio(MusicArray[0].id);
+      if (currentTrackIndex < MusicArray.length - 1) {
+        toggleAudio(MusicArray[currentTrackIndex + 1].id);
+        if (currentTrackIndex === 12 || currentTrackIndex === 22) {
+          loadMore();
+        }
+      } else {
+        toggleAudio(MusicArray[0].id);
+      }
     }
   };
 
@@ -112,12 +124,20 @@ const Main = () => {
   };
 
   const playAllTracks = () => {
-    setCurrentTrackIndex(0);
-    toggleAudio(MusicArray[0].id);
+    if (openFavorite) {
+      if (favoritesList.length > 0) {
+        setCurrentTrackIndex(0);
+        toggleAudio(favoritesList[0]);
+      }
+    } else {
+      if (MusicArray.length > 0) {
+        setCurrentTrackIndex(0);
+        toggleAudio(MusicArray[0].id);
+      }
+    }
   };
 
   useEffect(() => {
-    // Вызываем toggleAudio после обновления currentTrackIndex
     toggleAudio(MusicArray[currentTrackIndex].id);
   }, [currentTrackIndex]);
 
@@ -185,7 +205,9 @@ const Main = () => {
                     type="audio/mp3"
                     autoPlay={isAudioPlaying}
                     onEnded={handleAudioEnded}
-                    className="  w-[200px]  h-[30px]  lg:w-[265px]  lg:h-[36px]  border-2 rounded-full border-neutral-700"
+                    className={`lg:mr-${
+                      openFavorite ? "10" : "0"
+                    } w-[200px] h-[30px] lg:w-[265px] lg:h-[36px] border-2 rounded-full border-neutral-700`}
                   />
                   {!openFavorite && (
                     <img
